@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 from polls.models import Poll
 
+
 class PollMethodTests(TestCase):
 
     def test_was_published_recently_with_old_poll(self):
@@ -32,6 +33,7 @@ class PollMethodTests(TestCase):
         future_poll = Poll(pub_date=timezone.now() + datetime.timedelta(days=30))
         self.assertEqual(future_poll.was_published_recently(), False)
 
+
 def create_poll(question, days):
     """
     Creates a poll with the given `question` published the given number of
@@ -40,6 +42,7 @@ def create_poll(question, days):
     """
     return Poll.objects.create(question=question,
         pub_date=timezone.now() + datetime.timedelta(days=days))
+
 
 class PollViewTests(TestCase):
     def test_index_view_with_no_polls(self):
@@ -94,7 +97,7 @@ class PollViewTests(TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_poll_list'],
-             ['<Poll: Past poll 2.>', '<Poll: Past poll 1.>']
+                            ['<Poll: Past poll 2.>', '<Poll: Past poll 1.>']
         )
 
 
