@@ -124,7 +124,7 @@ class PollIndexDetailTests(TestCase):
         response = self.client.get(reverse('polls:detail', args=(past_poll.id,)))
         self.assertContains(response, past_poll.question, status_code=200)
 
-    
+
 @unittest.skipUnless(os.environ.get('DJANGO_APP_URL', '') !='', 'not running functional tests')
 class FunctionalTests(TestCase):
 
