@@ -137,6 +137,7 @@ class FunctionalTests(TestCase):
         driver.get('%s%s' % (self.url, '/polls/1'))
         driver.find_element_by_id("choice1").click()
         driver.find_element_by_id("submit").click()
+        driver.find_element_by_link_text("Vote again?")
 
     def tearDown(self):
         self.driver.close()
