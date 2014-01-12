@@ -1,4 +1,8 @@
 import datetime
+import os
+import unittest
+
+from selenium import webdriver
 
 from django.utils import timezone
 from django.test import TestCase
@@ -119,3 +123,20 @@ class PollIndexDetailTests(TestCase):
         past_poll = create_poll(question='Past Poll.', days=-5)
         response = self.client.get(reverse('polls:detail', args=(past_poll.id,)))
         self.assertContains(response, past_poll.question, status_code=200)
+
+    
+@unittest.skipUnless(os.environ.get('DJANGO_APP_URL', '') !='', 'not running functional tests')
+class FunctionalTests(TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        self.url = os.environ.get('DJANGO_APP_URL', 'http://localhost:8000')
+
+    def test_search_in_python_org(self):
+        driver = self.driver
+        driver.get('%s%s' % (self.url, '/polls/1'))
+        driver.find_element_by_id("choice1").click()
+        driver.find_element_by_id("submit").click()
+
+    def tearDown(self):
+        self.driver.close()
