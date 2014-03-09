@@ -1,6 +1,6 @@
 *.pyc
 db.sqlite3
 .DS_Store
-cover
+cover/
 .coverage
 nosetests.xml
