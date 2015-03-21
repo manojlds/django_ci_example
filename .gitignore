@@ -4,3 +4,4 @@ db.sqlite3
 cover/
 .coverage
 nosetests.xml
+.tox
